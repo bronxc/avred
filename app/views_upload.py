@@ -81,7 +81,7 @@ def upload_file():
             response = requests.get(serverUrl, timeout=1)
             if not response.ok and prod:
                 return  'Server offline: ' + serverName, 400
-        except requests.exceptions.Timeout:
+        except:
             if prod:
                 return  'Server offline: ' + serverName, 400
 
@@ -143,7 +143,7 @@ def upload_file():
             response = requests.get(serverUrl, timeout=1)
             if response.ok:
                 status = "Online"
-        except requests.exceptions.Timeout:
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError, requests.exceptions.RequestException):
             status = 'Offline'
 
         server = {
